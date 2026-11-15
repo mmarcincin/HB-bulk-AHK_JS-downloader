@@ -64,7 +64,7 @@ How to use it
   - You can also close the script with your mouse in the system tray next to time (might be hidden under ^ based on your settings).
 
 
-2. On specific bundle page with ebooks or DRM-free downloads, launch the 'HB_Bulk_AHK-JavaScript-Downloader' javascript from bookmarks bar.
+3. On specific bundle page with ebooks or DRM-free downloads, launch the 'HB_Bulk_AHK-JavaScript-Downloader' javascript from bookmarks bar.
 
 !!! This type of downloading simulates user input. When you launch javascript from the bookmark, you should not interact with PC unless you want to interrupt download. !!!
 ----------------------
