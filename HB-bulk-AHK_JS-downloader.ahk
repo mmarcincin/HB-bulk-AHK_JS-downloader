@@ -118,7 +118,7 @@ CheckBrowserTitle:
         Sleep, 50
         Send, ^v
         Sleep, 150
-        Send, !s ; Use !u if your Windows UI is in Slovak
+        Send, !s ; When you open the save as window in your browser press alt and check which letter on save button is underscored. if it's u, modify it to Send, !u
         
         ; Restore original clipboard contents
         Clipboard := ClipSaved
