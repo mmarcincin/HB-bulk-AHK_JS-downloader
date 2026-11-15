@@ -51,12 +51,18 @@ I recommend placing in on bookmarks bar for quick access.
 
 How to use it
 ----------------------
-1. Launch HB_Bulk_AHK_JS_Downloader.ahk
+1. In order to confirm save as dialogue, this script is using alt+s hotkey.
+- It's possible it won't work if you are using different language for windows/browser and instead of save, you have different button there.
+- Edit HB_Bulk_AHK_JS_Downloader.ahk in notepad and go to line 121
+- Send, !s ; When you open the save as window in your browser press alt and check which letter on save button is underscored. if it's u, modify it to Send, !u
+
+2. Launch HB_Bulk_AHK_JS_Downloader.ahk
 - You can use following hotkey to control autohotkey script (can be modified in script itself):
   - ctrl+shift+s and win+Numpad/, close script
   - ctrl+shift+r, restart script
   - win+Numpad+, suspend script - toogle - in suspended state doesn't react to hotkeys above
   - You can also close the script with your mouse in the system tray next to time (might be hidden under ^ based on your settings).
+
 
 3. On specific bundle page with ebooks or DRM-free downloads, launch the 'HB_Bulk_AHK-JavaScript-Downloader' javascript from bookmarks bar.
 
