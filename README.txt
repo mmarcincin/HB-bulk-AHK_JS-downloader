@@ -21,7 +21,7 @@ downloads\BundleName\BookName\file.ext
 - When downloading is complete javascript will show you the message 'Bundle download complete!'.
 
 If full filepath goes over 260 characters:
-1. It automatically trims filename after first - or _, alternatively to 20 character + extension.
+1. It automatically trims filename after first - or _, alternatively to 20 characters + extension.
 2. If trimming filename is not enough. It shortens the BookName to 40 characters.
 
 Browser setup
@@ -43,7 +43,7 @@ For Firefox browser users
 
 Javascript bookmark setup
 ----------------------
-Create empty bookmark, you can name it 'HB_Bulk_AHK-JavaScript-Downloader' and paste text from HB_Bulk_AHK-JavaScript-Downloader-js.txt inside url of bookmark.
+Create empty bookmark, you can name it 'HB-bulk-AHK_JS-downloader' and paste text from HB-bulk-AHK_JS-downloader-js.txt inside url of bookmark.
 
 If you can't create empty bookmark save any website not already saved as bookmark and modify it's name and url.
 
@@ -53,10 +53,10 @@ How to use it
 ----------------------
 1. In order to confirm save as dialogue, this script is using alt+s hotkey.
 - It's possible it won't work if you are using different language for windows/browser and instead of save, you have different button there.
-- Edit HB_Bulk_AHK_JS_Downloader.ahk in notepad and go to line 121
+- Edit HB-bulk-AHK_JS-downloader.ahk in notepad and go to line 121
 - Send, !s ; When you open the save as window in your browser press alt and check which letter on save button is underscored. if it's u, modify it to Send, !u
 
-2. Launch HB_Bulk_AHK_JS_Downloader.ahk
+2. Launch HB-bulk-AHK_JS-downloader.ahk
 - You can use following hotkey to control autohotkey script (can be modified in script itself):
   - ctrl+shift+s and win+Numpad/, close script
   - ctrl+shift+r, restart script
@@ -64,7 +64,7 @@ How to use it
   - You can also close the script with your mouse in the system tray next to time (might be hidden under ^ based on your settings).
 
 
-3. On specific bundle page with ebooks or DRM-free downloads, launch the 'HB_Bulk_AHK-JavaScript-Downloader' javascript from bookmarks bar.
+3. On specific bundle page with ebooks or DRM-free downloads, launch the 'HB-bulk-AHK_JS-downloader' javascript from bookmarks bar.
 
 !!! This type of downloading simulates user input. When you launch javascript from the bookmark, you should not interact with PC unless you want to interrupt download. !!!
 ----------------------
