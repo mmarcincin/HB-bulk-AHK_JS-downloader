@@ -1,4 +1,4 @@
-# HB-Bulk-AHK_JS-Downloader
+# HB Bulk AHK_JS Downloader
 Download link: 
 https://github.com/mmarcincin/HB-bulk-AHK_JS-downloader/archive/master.zip
 ----------------------
