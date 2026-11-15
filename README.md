@@ -1,8 +1,8 @@
-# HB Bulk AHK_JS Downloader
+# HB bulk AHK_JS downloader
 Download link: 
 https://github.com/mmarcincin/HB-bulk-AHK_JS-downloader/archive/master.zip
 ----------------------
-HB_Bulk_AHK_JS_Downloader 0.0.1
+HB bulk AHK_JS downloader 0.0.1
 ----------------------
 hybrid script using both autohotkey and javascript for downloading humble bundle DRM-Free files
 
