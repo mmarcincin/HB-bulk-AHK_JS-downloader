@@ -1,0 +1,103 @@
+javascript: (async function () {
+    /* Remove characters not allowed in Windows folder/file names */
+    function sanitize(name) {
+        return name ? name.replace(/[\\/:*?"<>|]/g, '_').replace(/\s+/g, ' ').trim() : 'Unknown_Name';
+    }
+
+    /* Helper function to get a random delay between min and max milliseconds */
+    function getRandomDelay(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    /* Communicate with AHK via document.title and wait for window focus to return */
+    function downloadWithAHK(btnElement, bundleName, specificName) {
+        return new Promise((resolve) => {
+            const originalTitle = document.title;
+            const cleanBundle = sanitize(bundleName);
+            const cleanSpecific = sanitize(specificName);
+            const uniqueId = Date.now();
+
+            /* Write request for AHK ending with | (includes timestamp and ignores browser suffix) */
+            document.title = `AHK_REQ|${cleanBundle}|${cleanSpecific}|${uniqueId}|`;
+            let isResolved = false;
+
+            const finishStep = () => {
+                if (isResolved)
+                    return;
+                isResolved = true;
+                window.removeEventListener('focus', onWindowFocus);
+                document.title = originalTitle;
+                let nextDelay = getRandomDelay(5500, 7500);
+                setTimeout(resolve, nextDelay);
+            };
+
+            const onWindowFocus = () => finishStep();
+            window.addEventListener('focus', onWindowFocus);
+
+            /* Click the download button after a short delay so AHK can read the title */
+            setTimeout(() => {
+                btnElement.click();
+            }, 250);
+
+            /* Safety timeout (15 seconds) in case the Save As dialog fails to open */
+            setTimeout(() => {
+                if (!isResolved) {
+                    console.warn(`Timeout while downloading: ${cleanSpecific}`);
+                    finishStep();
+                }
+            }, 15000);
+        });
+    }
+
+    /* 1. Find the root container for the current bundle */
+    const bulkForm = document.querySelector('form[action="/api/library/bulk-download"]');
+	const downloadsForm = bulkForm ? undefined : document.querySelector('a[href="https://support.humblebundle.com/hc/en-us/articles/202712300-Viewing-Your-eBook-Files-On-Your-Reading-Device"]')?.parentNode;
+
+	const mainEle = bulkForm?.parentNode ?? downloadsForm?.parentNode;
+
+    /* 2. Get the Bundle Name with the extra parentNode adjustment */
+    const bundleHeading = mainEle.parentNode.querySelector('h1, h2, h3') || document.querySelector('h1');
+    const bundleName = bundleHeading ? bundleHeading.innerText : 'Humble_Bundle';
+
+    /* 3. Get all item card elements */
+    const downloadsEle = mainEle.getElementsByClassName("bg-card text-card-foreground shadow-xs flex flex-col rounded-xl border-0");
+	if (!downloadsEle) {
+		alert('No downloads found.');
+	}
+
+    /* 4. Loop through each card container */
+    for (let i = 0; i < downloadsEle.length; i++) {
+        const card = downloadsEle[i];
+
+        /* Extract the specific title element (book name) */
+        const titleElements = card.getElementsByClassName("text-base leading-normal font-normal text-accent truncate");
+        if (titleElements.length === 0)
+            continue;
+
+        const specificName = titleElements[0].innerText.trim();
+
+        /* Skip the master header card (e.g. "All 9 Items") which contains the bulk download controls */
+        if (specificName.startsWith("All ") && specificName.includes("Items")) {
+            continue;
+        }
+
+        /* Find all format download buttons inside this specific item card */
+        const buttons = card.querySelectorAll('button');
+        for (const btn of buttons) {
+            /* Skip combobox dropdowns or bulk download buttons if encountered */
+            /* if (btn.getAttribute('role') === 'combobox' || btn.innerText.includes('Bulk Download')) {
+                continue;
+            }
+			*/
+			/* skips all buttons which don't have 'MB)' in their text - ideal for different language setup on website */
+			if (!btn.innerText.includes(' MB)')) {
+				continue;
+			}
+
+            console.log(`Downloading: ${bundleName} -> ${specificName} (${btn.innerText.trim()})`);
+            await downloadWithAHK(btn, bundleName, specificName);
+        }
+    }
+
+    alert('Bundle download complete!');
+})();
